@@ -7,6 +7,7 @@ interface ICounter {
 
 const Counter = ({ defaultCount, description }: ICounter) => {
     const [count, setCount] = useState(defaultCount)
+    const [incrementor, setIncrementor] = useState(1)
 
     return (
         <div>
@@ -14,9 +15,14 @@ const Counter = ({ defaultCount, description }: ICounter) => {
                 DESC: {description}, DC: {defaultCount}
             </h2>
 
-            <button aria-label='increment' onClick={() => setCount(count + 1)}>+</button>
+            <label>
+                Incrementor:
+                <input type='number' value={incrementor} onChange={e => setIncrementor(parseInt(e.target.value) || 0)} />
+            </label>
+
+            <button aria-label='increment' onClick={() => setCount(count + incrementor)}>+</button>
             Current count: {count}
-            <button aria-label='decrement' onClick={() => setCount(count - 1)}>-</button>
+            <button aria-label='decrement' onClick={() => setCount(count - incrementor)}>-</button>
         </div>
     )
 }
