@@ -1,12 +1,40 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
-
+import { fireEvent, render, screen } from '@testing-library/react'
 
 import Counter from './Counter'
 
-it('defaultCount = 0, then counter = 1', () => {
-    render(<Counter defaultCount={0} description='My Counter' />)
-})
+describe('Counter', () => {
+    describe('Initialized with defaultCount=0 and description="My Counter"', () => {
+        beforeEach(() => {
+            render(<Counter defaultCount={0} description='My Counter' />)
+        })
 
-it.todo('defaultCount = 0, and - clicked then counter = -1')
-it.todo('defaultCount = 0, and + clicked then counter = 1')
+        it('renders "Current Count: 0"', () => {
+            expect(screen.getByText('Current count: 0')).toBeInTheDocument()
+        })
+
+        it('renders title as "MyCounter"', () => {
+            expect(screen.getByText(/my counter/i)).toBeInTheDocument()
+        })
+
+        describe('When + is clicked', () => {
+            beforeEach(() => {
+                fireEvent.click(screen.getByRole('button', { name: 'increment' }))
+            })
+
+            it('renders "Current Count: 1"', () => {
+                expect(screen.getByText('Current count: 1')).toBeInTheDocument()
+            })
+        })
+
+        describe('When - is clicked', () => {
+            beforeEach(() => {
+                fireEvent.click(screen.getByRole('button', { name: 'decrement' }))
+            })
+
+            it('renders "Current Count: -1"', () => {
+                expect(screen.getByText('Current count: -1')).toBeInTheDocument()
+            })
+        })
+    })
+})

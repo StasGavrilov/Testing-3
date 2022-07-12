@@ -14,9 +14,9 @@ const Counter = ({ defaultCount, description }: ICounter) => {
                 DESC: {description}, DC: {defaultCount}
             </h2>
 
-            <button onClick={() => setCount(count + 1)}>+</button>
+            <button aria-label='increment' onClick={() => setCount(count + 1)}>+</button>
             Current count: {count}
-            <button onClick={() => setCount(count - 1)}>-</button>
+            <button aria-label='decrement' onClick={() => setCount(count - 1)}>-</button>
         </div>
     )
 }
