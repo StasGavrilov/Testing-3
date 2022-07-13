@@ -11,10 +11,16 @@ const Counter = ({ defaultCount, description }: ICounter) => {
     const [bigEnough, setBigEnough] = useState(defaultCount >= 15)
 
     useEffect(() => {
+        let id: NodeJS.Timeout
+
         if (count >= 15) {
-            setTimeout(() => {
+            id = setTimeout(() => {
                 setBigEnough(true)
             }, 300)
+        }
+
+        return function cleanup() {
+            clearTimeout(id);
         }
     }, [])
 
@@ -26,7 +32,11 @@ const Counter = ({ defaultCount, description }: ICounter) => {
 
             <label>
                 Incrementor:
-                <input type='number' value={incrementor} onChange={e => setIncrementor(parseInt(e.target.value) || 0)} />
+                <input
+                    value={incrementor}
+                    onChange={e => setIncrementor(parseInt(e.target.value) || 1)}
+                    type='number'
+                />
             </label>
 
             <button aria-label="increment" onClick={() => setCount(count + incrementor)}>+</button>

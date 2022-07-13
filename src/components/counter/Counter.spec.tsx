@@ -20,44 +20,44 @@ describe('Counter', () => {
 
         describe('when the incrementor changes to 5 and "+" button is clicked', () => {
             beforeEach(async () => {
-                await user.type(screen.getByLabelText(/incrementor/i), '{selectall}5')
-                await user.click(screen.getByRole('button', { name: 'increment' }))
+                user.type(screen.getByLabelText(/incrementor/i), '{selectall}5')
+                user.click(screen.getByRole('button', { name: 'increment' }))
                 await waitFor(() => screen.getByText('Current Count: 15'))
             })
 
             it('renders "Current Count: 15"', () => {
                 expect(screen.getByText('Current count: 15')).toBeInTheDocument()
-                //
+                // Failing..
             })
 
             it('renders to big, and will disappear after 300ms', async () => {
                 await waitForElementToBeRemoved(() => screen.queryByText('I am to small'))
-                //
+                // Failing..
             })
         })
 
         describe('when the incrementor changes to empty string and "+" button is clicked', () => {
             beforeEach(async () => {
-                await user.type(screen.getByLabelText(/Incrementor/), '{selectall}{delete}')
-                await user.click(screen.getByRole('button', { name: 'increment' }))
+                user.type(screen.getByLabelText(/Incrementor/), '{selectall}{delete}')
+                user.click(screen.getByRole('button', { name: 'increment' }))
                 await waitFor(() => screen.getByText('Current Count: 16'))
             })
 
             it('renders "Current Count: 16"', () => {
                 expect(screen.getByText('Current Count: 16')).toBeInTheDocument()
-                //
+                // Failing..
             })
         })
 
         describe('when the incrementor changes to 25 and "-" button is clicked', () => {
-            beforeEach(async () => {
-                await user.type(screen.getByLabelText(/incrementor/i), '{selectall}25')
-                await user.click(screen.getByRole('button', { name: 'decrement' }))
+            beforeEach(() => {
+                user.type(screen.getByLabelText(/incrementor/i), '{selectall}25')
+                user.click(screen.getByRole('button', { name: 'decrement' }))
             })
 
             it('renders "Current Count: -15"', async () => {
                 expect(screen.getByText('Current count: -15')).toBeInTheDocument()
-                //
+                // Failing..
             })
         })
     })
@@ -86,8 +86,8 @@ describe('Counter', () => {
         })
 
         describe('When - is clicked', () => {
-            beforeEach(async () => {
-                await user.click(screen.getByRole('button', { name: 'decrement' }))
+            beforeEach(() => {
+                user.click(screen.getByRole('button', { name: 'decrement' }))
             })
 
             it('renders "Current Count: -1"', async () => {
