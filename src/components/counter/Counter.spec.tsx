@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react'
 import user from '@testing-library/user-event'
 
 import Counter from './Counter'
@@ -27,7 +27,12 @@ describe('Counter', () => {
 
             it('renders "Current Count: 15"', () => {
                 expect(screen.getByText('Current count: 15')).toBeInTheDocument()
-                // getting 25 and not 15, looks like it not clear the textbox
+                //
+            })
+
+            it('renders to big, and will disappear after 300ms', async () => {
+                await waitForElementToBeRemoved(() => screen.queryByText('I am to small'))
+                //
             })
         })
 
@@ -35,9 +40,10 @@ describe('Counter', () => {
             beforeEach(async () => {
                 await user.type(screen.getByLabelText(/Incrementor/), '{selectall}{delete}')
                 await user.click(screen.getByRole('button', { name: 'increment' }))
+                await waitFor(() => screen.getByText('Current Count: 16'))
             })
 
-            fit('renders "Current Count: 16"', () => {
+            it('renders "Current Count: 16"', () => {
                 expect(screen.getByText('Current Count: 16')).toBeInTheDocument()
                 //
             })
