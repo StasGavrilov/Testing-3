@@ -22,6 +22,7 @@ describe('Counter', () => {
             beforeEach(async () => {
                 await user.type(screen.getByLabelText(/incrementor/i), '{selectall}5')
                 await user.click(screen.getByRole('button', { name: 'increment' }))
+                await waitFor(() => screen.getByText('Current Count: 15'))
             })
 
             it('renders "Current Count: 15"', () => {
@@ -34,7 +35,6 @@ describe('Counter', () => {
             beforeEach(async () => {
                 await user.type(screen.getByLabelText(/Incrementor/), '{selectall}{delete}')
                 await user.click(screen.getByRole('button', { name: 'increment' }))
-                await waitFor(() => screen.getByText('Current Count: 15'))
             })
 
             fit('renders "Current Count: 16"', () => {
