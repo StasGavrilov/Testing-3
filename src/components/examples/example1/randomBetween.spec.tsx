@@ -13,4 +13,26 @@ describe('randomBetween', () => {
       expect(Math.random).toHaveBeenCalledTimes(1)
     })
   })
+
+  describe('when Math.random() returns 0.5', () => {
+    beforeEach(() => {
+      randomSpy.mockClear().mockReturnValue(0.5);
+    })
+
+    it('called with min=3 and max=5 returns 4', () => {
+      expect(randomBetween(3, 5)).toBe(4);
+      expect(Math.random).toHaveBeenCalledTimes(1)
+    })
+  })
+
+  describe('when Math.random() returns 0.9999', () => {
+    beforeEach(() => {
+      randomSpy.mockClear().mockReturnValue(0.9999);
+    })
+
+    it('called with min=3 and max=5 returns 5', () => {
+      expect(randomBetween(3, 5)).toBe(5);
+      expect(Math.random).toHaveBeenCalledTimes(1)
+    })
+  })
 })
