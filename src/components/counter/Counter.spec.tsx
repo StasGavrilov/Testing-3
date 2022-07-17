@@ -20,8 +20,8 @@ describe('Counter', () => {
 
         describe('when the incrementor changes to 5 and "+" button is clicked', () => {
             beforeEach(async () => {
-                user.type(screen.getByLabelText(/incrementor/i), '{selectall}5')
-                user.click(screen.getByRole('button', { name: 'increment' }))
+                await user.type(screen.getByLabelText(/incrementor/i), '{selectall}5')
+                await user.click(screen.getByRole('button', { name: 'increment' }))
                 await waitFor(() => screen.getByText('Current Count: 15'))
             })
 
@@ -38,8 +38,8 @@ describe('Counter', () => {
 
         describe('when the incrementor changes to empty string and "+" button is clicked', () => {
             beforeEach(async () => {
-                user.type(screen.getByLabelText(/Incrementor/), '{selectall}{delete}')
-                user.click(screen.getByRole('button', { name: 'increment' }))
+                await user.type(screen.getByLabelText(/Incrementor/), '{selectall}{delete}')
+                await user.click(screen.getByRole('button', { name: 'increment' }))
                 await waitFor(() => screen.getByText('Current Count: 16'))
             })
 
@@ -50,9 +50,9 @@ describe('Counter', () => {
         })
 
         describe('when the incrementor changes to 25 and "-" button is clicked', () => {
-            beforeEach(() => {
-                user.type(screen.getByLabelText(/incrementor/i), '{selectall}25')
-                user.click(screen.getByRole('button', { name: 'decrement' }))
+            beforeEach(async () => {
+                await user.type(screen.getByLabelText(/incrementor/i), '{selectall}25')
+                await user.click(screen.getByRole('button', { name: 'decrement' }))
             })
 
             it('renders "Current Count: -15"', async () => {
