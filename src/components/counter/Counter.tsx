@@ -8,21 +8,6 @@ interface ICounter {
 const Counter = ({ defaultCount, description }: ICounter) => {
     const [count, setCount] = useState(defaultCount)
     const [incrementor, setIncrementor] = useState(1)
-    const [bigEnough, setBigEnough] = useState(defaultCount >= 15)
-
-    useEffect(() => {
-        let id: NodeJS.Timeout
-
-        if (count >= 15) {
-            id = setTimeout(() => {
-                setBigEnough(true)
-            }, 300)
-        }
-
-        return function cleanup() {
-            clearTimeout(id);
-        }
-    }, [])
 
     return (
         <div>
@@ -34,16 +19,14 @@ const Counter = ({ defaultCount, description }: ICounter) => {
                 Incrementor:
                 <input
                     value={incrementor}
-                    onChange={e => setIncrementor(parseInt(e.target.value) || 1)}
-                    type='number'
+                    onChange={e => setIncrementor(parseInt(e.target.value))}
+                    type='text'
                 />
             </label>
 
             <button aria-label="increment" onClick={() => setCount(count + incrementor)}>+</button>
             Current count: {count}
             <button aria-label="decrement" onClick={() => setCount(count - incrementor)}>-</button>
-
-            {bigEnough ? null : <div>I am to small</div>}
         </div>
     )
 }
